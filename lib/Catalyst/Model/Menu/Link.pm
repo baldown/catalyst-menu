@@ -1,51 +1,107 @@
-Catalyst-Model-Menu
+package Catalyst::Model::Menu::Link;
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+use 5.006;
+use strict;
+use warnings FATAL => 'all';
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+=head1 NAME
+
+Catalyst::Model::Menu::Link - The great new Catalyst::Model::Menu::Link!
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
+
+our $VERSION = '0.01';
 
 
-INSTALLATION
+=head1 SYNOPSIS
 
-To install this module, run the following commands:
+Quick summary of what the module does.
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+Perhaps a little code snippet.
 
-SUPPORT AND DOCUMENTATION
+    use Catalyst::Model::Menu::Link;
 
-After installing, you can find documentation for this module with the
-perldoc command.
+    my $foo = Catalyst::Model::Menu::Link->new();
+    ...
 
-    perldoc Catalyst::Model::Menu
+=head1 EXPORT
+
+A list of functions that can be exported.  You can delete this section
+if you don't export anything, such as for a purely object-oriented module.
+
+=head1 SUBROUTINES/METHODS
+
+=cut
+
+sub new {
+    my ($class, %params) = @_;
+    my $self = bless {%params}, $class;
+    return $self;
+}
+
+sub selected {
+    my ($self, $request) = @_;
+    if ($self->{url} =~ /^http/) {
+        return ($request->uri eq $self->{url}) ? 1 : 0;
+    } else {
+        return $request->path eq $self->{url} ? 1 : 0;
+    }
+    return 0;
+}
+
+=head1 AUTHOR
+
+Josh Ballard, C<< <josh at oofle.com> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-catalyst-model-menu at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Model-Menu>.  I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
+
+
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Catalyst::Model::Menu::Link
+
 
 You can also look for information at:
 
-    RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Model-Menu
+=over 4
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Catalyst-Model-Menu
+=item * RT: CPAN's request tracker (report bugs here)
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/Catalyst-Model-Menu
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Model-Menu>
 
-    Search CPAN
-        http://search.cpan.org/dist/Catalyst-Model-Menu/
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Catalyst-Model-Menu>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Catalyst-Model-Menu>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/Catalyst-Model-Menu/>
+
+=back
 
 
-LICENSE AND COPYRIGHT
+=head1 ACKNOWLEDGEMENTS
 
-Copyright (C) 2013 Josh Ballard
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2013 Josh Ballard.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
@@ -83,3 +139,7 @@ CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
+=cut
+
+1; # End of Catalyst::Model::Menu::Link
