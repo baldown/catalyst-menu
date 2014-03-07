@@ -46,6 +46,7 @@ sub new {
         title => $options{title},
         links => [],
         class => $options{class},
+        selected_class => $options{selected_class} || 'selected',
     };
     $self = bless $self, $class;
     $self->add_link(@$_) foreach @{$options{links}};
@@ -74,7 +75,7 @@ sub build_menu {
             <span class="menu_title">[% menu.title %]</span>
             <ul>
             [% FOREACH link IN menu.links %]
-              <li><a [% link.selected(request) ? 'class="selected" ' : '' %] 
+              <li><a [% link.selected(request) ? 'class="' _ menu.selected_class _ '" ' : '' %] 
                 href="[% link.url %]">[% link.title %]</a></li>
             [% END %]
             </ul>

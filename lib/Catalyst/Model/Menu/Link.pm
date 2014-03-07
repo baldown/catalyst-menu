@@ -48,7 +48,7 @@ sub selected {
     if ($self->{url} =~ /^http/) {
         return ($request->uri eq $self->{url}) ? 1 : 0;
     } else {
-        return $request->path eq $self->{url} ? 1 : 0;
+        return "/".$request->path eq $self->{url} ? 1 : 0;
     }
     return 0;
 }
