@@ -46,7 +46,10 @@ sub new {
         title => $options{title},
         links => [],
         class => $options{class},
+        list_class => $options{list_class},
+        selected_item_class => $options{selected_item_class} || 'active',
         selected_class => $options{selected_class} || 'selected',
+        only_inner => $options{only_inner} || 0,
     };
     $self = bless $self, $class;
     $self->add_link(@$_) foreach @{$options{links}};
@@ -70,14 +73,19 @@ sub links {
 sub build_menu {
     my ($self, $request) = @_;
     my $tt = Template->new();
-    my $text = qq(
+    my $inner = qq(
+            [% FOREACH link IN menu.links %]
+              <li role="presentation" [% link.selected(request) ? 'class="' _ menu.selected_item_class _ '" ' : '' %]">
+                <a role="menuitem" [% link.selected(request) ? 'class="' _ menu.selected_class _ '" ' : '' %] 
+                href="[% link.url %]">[% link.title %]</a>
+              </li>
+            [% END %]
+    );
+    my $text = $self->{only_inner} ? $inner : qq(
         <div class="[% menu.class %]">
             <span class="menu_title">[% menu.title %]</span>
-            <ul>
-            [% FOREACH link IN menu.links %]
-              <li><a [% link.selected(request) ? 'class="' _ menu.selected_class _ '" ' : '' %] 
-                href="[% link.url %]">[% link.title %]</a></li>
-            [% END %]
+            <ul role="menu" class="[% menu.list_class %]">
+            $inner
             </ul>
         </div>
     );
