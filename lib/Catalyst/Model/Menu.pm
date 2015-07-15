@@ -62,7 +62,7 @@ sub add_link {
         (title => $opts[1],
         url => $opts[0]) : (@opts);
     my $linkobj = Catalyst::Model::Menu::Link->new(%params);
-    push($self->{links}, $linkobj);
+    push @{$self->{links}}, $linkobj;
 }
 
 sub links {
